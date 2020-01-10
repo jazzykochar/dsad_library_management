@@ -20,22 +20,29 @@ class bookNode:
         if self is None: 
             self = node 
         else: 
-            if self.bookID < node.val: 
+            if self.bookID < node.bookID: 
                 if self.right is None: 
                     self.right = node 
                 else: 
-                    readBookList(self.right, bkID, availCount) 
+                    self.right._readBookList(bkID, availCount) 
             else: 
                 if self.left is None: 
                     self.left = node 
                 else: 
-                    readBookList(self.left, bkID, availCount)
+                   self.left._readBookList(bkID, availCount)
+
+    def _printBooks(self, bkNode):
+        if bkNode: 
+            
+            # First recur on left child 
+            self._printBooks(bkNode.left) 
+      
+            # then print the data of node 
+            print(bkNode.bookID)
+      
+            # now recur on right child 
+            self._printBooks(bkNode.right) 
         
-
-
-    def printBooks(self, bkNode):
-        
-
 #def_chkInChkOut(self, bkID, inOut):
 
 #def _getTopBooks(self, bkNode):
@@ -53,11 +60,12 @@ def main():
         root = bookNode(int(bkId), int(availCount))
         for line in f.readlines():
             bkId,availCount = line.split(",")
-            root.readBookList(int(bkId), int(availCount))
-            
-            
-        
-if __name__ == "__main__":
+#            print(bkId, availCount)
+            root._readBookList(int(bkId), int(availCount))
+    
+    root._printBooks(root)
+    
+if __name__=="__main__":
     main()
         
             
