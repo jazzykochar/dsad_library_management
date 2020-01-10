@@ -13,25 +13,28 @@ class bookNode:
         self.chkOutCntr = 0
         self.left = None
         self.right = None
+                    
+    def _readBookList(self, bkID, availCount):
         
-    def insert(self): 
-        if self. is None: 
-            root = node 
+        node = bookNode(bkID, availCount)
+        if self is None: 
+            self = node 
         else: 
-            if root.val < node.val: 
-                if root.right is None: 
-                    root.right = node 
+            if self.bookID < node.val: 
+                if self.right is None: 
+                    self.right = node 
                 else: 
-                    insert(root.right, node) 
+                    readBookList(self.right, bkID, availCount) 
             else: 
-                if root.left is None: 
-                    root.left = node 
+                if self.left is None: 
+                    self.left = node 
                 else: 
-                    insert(root.left, node) 
-def _readBookList(self, bkID, availCount):
+                    readBookList(self.left, bkID, availCount)
+        
 
 
-#def printBooks(self, bkNode):
+    def printBooks(self, bkNode):
+        
 
 #def_chkInChkOut(self, bkID, inOut):
 
@@ -43,13 +46,20 @@ def _readBookList(self, bkID, availCount):
 #
 #def _stockOut(self, eNode):
 #
-
-if __name__ == "__main__":
+def main():
     # Read 
     with open('../data_files/inputPS6.txt') as f:
-        for line in f:
-            split = line.split(",")
-            bookNode(split[0], split[1])
+        bkId,availCount = f.readline().split(",")
+        root = bookNode(int(bkId), int(availCount))
+        for line in f.readlines():
+            bkId,availCount = line.split(",")
+            root.readBookList(int(bkId), int(availCount))
+            
+            
+        
+if __name__ == "__main__":
+    main()
+        
             
     # Df to Book Node
     
