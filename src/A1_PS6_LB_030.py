@@ -5,6 +5,9 @@ Created on Fri Jan 10 23:37:14 2020
 @author: sidus
 D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
+
+stockout_count = 0
+stockout_list =[]
 class bookNode:
     def __init__(self, bkID, availCount):
         self.bookID = bkID
@@ -41,6 +44,25 @@ class bookNode:
             
             # now recur on right child 
             self.printBooks(bkNode.right) 
+
+    def _stockOut(self, bkNode):
+         if bkNode: 
+            # First recur on left child 
+            self._stockOut(bkNode.left) 
+            # then print the data of node      
+            self._processStockOut(bkNode)
+            # now recur on right child 
+            self._stockOut(bkNode.right)
+ 
+            
+    def _processStockOut(self,bkNode):
+        global stockout_count
+        if bkNode.avCntr == 0:
+            stockout_list.append(bkNode)  
+            stockout_count = stockout_count +1
+            output(str(bkNode.bookID))
+#            print(bkNode.bookID)
+
             
 def output(text):
     with open('../data_files/outputPS6.txt', 'a+') as outf:
@@ -53,7 +75,8 @@ def output(text):
 #    
 #def _findBook(self, eNode, bkID):
 #
-#def _stockOut(self, eNode):
+   
+        
 #
 def main():
     # Code to create the binary tree
@@ -72,7 +95,7 @@ def main():
 #    if not os.path.exists('../data_files/outputPS6.txt'):
 #        os.mkdir('../data_files/outputPS6.txt')
     
-    with open('../data_files/prompts_printInventory.txt', 'r') as prof:
+    with open('../data_files/prompts_stockout.txt', 'r') as prof:
         for line in prof.readlines():
             print(line)
             if "check" in line:
@@ -87,6 +110,13 @@ def main():
             elif "BooksNotIssued" in line:
                 print('not issued')
 #                call book not issued
+            elif "ListStockOut" in line:
+                output("All available copies of the below books have been checked out:")
+                root._stockOut(root)
+                print(stockout_count)
+                for i in stockout_list: 
+                    print(i.bookID) 
+    
             elif "printInventory" in line:
                 output("There are a total of "+str(counter)+" book titles in the library.")
                 root.printBooks(root)

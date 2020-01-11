@@ -1,21 +1,8 @@
-There are a total of 20 book titles in the library.
-100001,4
-100002,5
-100003,15
-100004,12
-100005,3
-100006,4
-100007,5
-100008,15
-100009,12
-100010,23
-100011,11
-100012,4
-100013,16
-100014,11
-100015,30
-100016,4
-100017,5
-100018,11
-100019,12
-100020,31
+All available copies of the below books have been checked out:
+100001
+100002
+100003
+All available copies of the below books have been checked out:
+100001
+100002
+100003
