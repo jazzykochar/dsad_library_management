@@ -5,7 +5,6 @@ Created on Fri Jan 10 23:37:14 2020
 @author: sidus
 D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
-
 class bookNode:
     def __init__(self, bkID, availCount):
         self.bookID = bkID
@@ -38,10 +37,13 @@ class bookNode:
             self.printBooks(bkNode.left) 
       
             # then print the data of node 
-            print(bkNode.bookID, bkNode.avCntr)
+            print(bkNode.bookID,", ",bkNode.avCntr)
       
             # now recur on right child 
             self.printBooks(bkNode.right) 
+            
+#    def printBook_process(bkNode):
+        
 
 #def_chkInChkOut(self, bkID, inOut):
 
@@ -55,16 +57,39 @@ class bookNode:
 #
 def main():
     # Code to create the binary tree
-    with open('../data_files/inputPS6.txt') as f:
-        bkId,availCount = f.readline().split(",")
+    with open('../data_files/inputPS6.txt') as inpf:
+        bkId,availCount = inpf.readline().split(",")
         print(bkId,availCount)
         root = bookNode(int(bkId), int(availCount))
-        for line in f.readlines():
+        for line in inpf.readlines():
             bkId,availCount = line.split(",")
             print(bkId, availCount)
             root._readBookList(int(bkId), int(availCount))
     
-    root.printBooks(root)
+#    Code to create output directory
+#    if not os.path.exists('../data_files/outputPS6.txt'):
+#        os.mkdir('../data_files/outputPS6.txt')
+    
+    with open('../data_files/prompts_printInventory.txt', 'r') as prof:
+        for line in prof.readlines():
+            print(line)
+            with open('../data_files/outputPS6.txt', 'w') as outf:
+                if "check" in line:
+                    print('check')
+#                    call check in out function and dont write in output file
+                elif "find" in line:
+                    print('find')
+    #                call find book function
+                elif "ListTopBooks" in line:
+                    print('list top')
+    #                Call function list top books
+                elif "BooksNotIssued" in line:
+                    print('not issued')
+    #                call book not issued
+                elif "printInventory" in line:
+                    root.printBooks(root)
+                else:
+                    continue
     
 if __name__=="__main__":
     main()
