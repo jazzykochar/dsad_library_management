@@ -5,7 +5,6 @@ Created on Fri Jan 10 23:37:14 2020
 @author: sidus
 D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
-
 stockout_count = 0
 stockout_list =[]
 class bookNode:
@@ -61,13 +60,25 @@ class bookNode:
         else:
             output("Book id "+str(bkID)+" does not exist")
 
-    def _topN(self, bkNode, n):
-        if not bkNode:
-            print('by')
-
     def _getTopBooks(self, bkNode):
+        global first, second, third 
         if bkNode: 
-            print('hello')
+            # First recur on left child 
+            self.printBooks(bkNode.left) 
+      
+            # then process the data of node
+            if bkNode.chkOutCntr > first.chkOutCntr:
+                third = second
+                second = first
+                first = bkNode
+            elif bkNode.chkOutCntr > second.chkOutCntr:
+                third = second
+                second = bkNode
+            elif bkNode.chkOutCntr > third.chkOutCntr:
+                third = bkNode
+            
+            # now recur on right child 
+            self.printBooks(bkNode.right) 
 
     def _stockOut(self, bkNode):
          if bkNode: 
@@ -80,21 +91,12 @@ class bookNode:
  
             
     def _processStockOut(self,bkNode):
-        global stockout_count
+#        global stockout_count
         if bkNode.avCntr == 0:
-            stockout_list.append(bkNode)  
-            stockout_count = stockout_count +1
+#            stockout_list.append(bkNode)  
+#            stockout_count = stockout_count +1
             output(str(bkNode.bookID))
 #            print(bkNode.bookID)
-            
-            # First recur on left child 
-            self._getTopBooks(bkNode.left) 
-            
-            # then print the data of node      
-            self.topN(bkNode, 3)
-            
-            # now recur on right child 
-            self._getTopBooks(bkNode.right) 
 
 def output(text):
     with open('../data_files/outputPS6.txt', 'a+') as outf:
@@ -140,6 +142,13 @@ def main():
                 root._findBook(root, int(bkID)) 
 #                call find book function
             elif "ListTopBooks" in line:
+                first = root
+                second = root
+                third = root
+                root._getTopBooks(root)
+                output("Top Books 1: ", first.bookID, ",", first.chkOutCntr)
+                output("Top Books 2: ", second.bookID, ",", second.chkOutCntr)
+                output("Top Books 3: ", third.bookID, ",", third.chkOutCntr)
                 print('list top')
 #                Call function list top books
             elif "BooksNotIssued" in line:
@@ -148,9 +157,9 @@ def main():
             elif "ListStockOut" in line:
                 output("All available copies of the below books have been checked out:")
                 root._stockOut(root)
-                print(stockout_count)
-                for i in stockout_list: 
-                    print(i.bookID) 
+#                print(stockout_count)
+#                for i in stockout_list: 
+#                    print(i.bookID) 
     
             elif "printInventory" in line:
                 output("There are a total of "+str(counter)+" book titles in the library.")
