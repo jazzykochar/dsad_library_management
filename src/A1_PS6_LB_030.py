@@ -29,6 +29,9 @@ class bookNode:
                     self.left = node 
                 else: 
                    self.left._readBookList(bkID, availCount)
+    def printBook_process(self,bkNode):
+        print(bkNode.bookID,",",bkNode.avCntr)
+                   
 
     def printBooks(self, bkNode):
         if bkNode: 
@@ -37,12 +40,15 @@ class bookNode:
             self.printBooks(bkNode.left) 
       
             # then print the data of node 
-            print(bkNode.bookID,", ",bkNode.avCntr)
+            #print(bkNode.bookID,", ",bkNode.avCntr)
+            
+            self.printBook_process(bkNode)
+            
       
             # now recur on right child 
             self.printBooks(bkNode.right) 
             
-#    def printBook_process(bkNode):
+    
         
 
 #def_chkInChkOut(self, bkID, inOut):
