@@ -29,28 +29,22 @@ class bookNode:
                     self.left = node 
                 else: 
                    self.left._readBookList(bkID, availCount)
-    def printBook_process(self,bkNode):
-        print(bkNode.bookID,",",bkNode.avCntr)
                    
-
     def printBooks(self, bkNode):
         if bkNode: 
             
             # First recur on left child 
             self.printBooks(bkNode.left) 
       
-            # then print the data of node 
-            #print(bkNode.bookID,", ",bkNode.avCntr)
+            # then print the data of node      
+            output(str(bkNode.bookID)+","+str(bkNode.avCntr))
             
-            self.printBook_process(bkNode)
-            
-      
             # now recur on right child 
             self.printBooks(bkNode.right) 
             
-    
-        
-
+def output(text):
+    with open('../data_files/outputPS6.txt', 'a+') as outf:
+        outf.write(text+"\n") 
 #def_chkInChkOut(self, bkID, inOut):
 
 #def _getTopBooks(self, bkNode):
@@ -67,7 +61,9 @@ def main():
         bkId,availCount = inpf.readline().split(",")
         print(bkId,availCount)
         root = bookNode(int(bkId), int(availCount))
-        for line in inpf.readlines():
+        counter = 1
+        for i, line in enumerate(inpf.readlines()):
+            counter = counter + 1
             bkId,availCount = line.split(",")
             print(bkId, availCount)
             root._readBookList(int(bkId), int(availCount))
@@ -79,23 +75,23 @@ def main():
     with open('../data_files/prompts_printInventory.txt', 'r') as prof:
         for line in prof.readlines():
             print(line)
-            with open('../data_files/outputPS6.txt', 'w') as outf:
-                if "check" in line:
-                    print('check')
+            if "check" in line:
+                print('check')
 #                    call check in out function and dont write in output file
-                elif "find" in line:
-                    print('find')
-    #                call find book function
-                elif "ListTopBooks" in line:
-                    print('list top')
-    #                Call function list top books
-                elif "BooksNotIssued" in line:
-                    print('not issued')
-    #                call book not issued
-                elif "printInventory" in line:
-                    root.printBooks(root)
-                else:
-                    continue
+            elif "find" in line:
+                print('find')
+#                call find book function
+            elif "ListTopBooks" in line:
+                print('list top')
+#                Call function list top books
+            elif "BooksNotIssued" in line:
+                print('not issued')
+#                call book not issued
+            elif "printInventory" in line:
+                output("There are a total of "+str(counter)+" book titles in the library.")
+                root.printBooks(root)
+            else:
+                continue
     
 if __name__=="__main__":
     main()
