@@ -96,10 +96,33 @@ class bookNode:
             # now recur on right child 
             self._getTopBooks(bkNode.right) 
 
+    def _chkInChkOut(self, bkID, inOut):
+        node = self._getNode(self , bkID)
+        if node:
+            if inOut == 'checkIn':
+                node.avCntr = node.avCntr + 1
+            elif inOut == 'checkOut':
+                node.avCntr = node.avCntr - 1
+                node.chkOutCntr = node.chkOutCntr + 1
+        
+    def _getNode(self, eNode , bkID):
+        if eNode: 
+            if eNode.bookID==bkID:
+                return eNode
+            
+            elif bkID<eNode.bookID:
+            # First recur on left child 
+                self._findBook(eNode.left, bkID)
+            else:
+            # now recur on right child 
+                self._findBook(eNode.right, bkID) 
+        else:
+            output("Book id "+str(bkID)+" does not exist") 
+            return None
+        
 def output(text):
     with open('../data_files/outputPS6.txt', 'a+') as outf:
         outf.write(text+"\n") 
-#def_chkInChkOut(self, bkID, inOut):
 
 #def _getTopBooks(self, bkNode):
 #
@@ -130,9 +153,20 @@ def main():
     with open('../data_files/promptsPS6.txt', 'r') as prof:
         for line in prof.readlines():
             print(line)
-            if "check" in line:
-                print('check')
+            if "checkIn" in line:
+                #cleaning the line text
+                line.replace(" ","")
+                label, bkID = line.split(":")
+                root._chkInChkOut(root, int(bkID),'checkIn')
 #                    call check in out function and dont write in output file
+            
+            elif "checkOut" in line:
+                #cleaning the line text
+                line.replace(" ","")
+                label, bkID = line.split(":")
+                root._chkInChkOut(root, int(bkID),'checkOut')
+#                    call check in out function and dont write in output file
+                
             elif "findBook" in line:
 #               cleaning the line text
                 line.replace(" ","")
