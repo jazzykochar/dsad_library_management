@@ -41,7 +41,40 @@ class bookNode:
             
             # now recur on right child 
             self.printBooks(bkNode.right) 
+    
+    def _findBook(self, eNode, bkID):
+        if eNode: 
+            if eNode.bookID==bkID:
+                if eNode.avCntr>0:
+                    output("Book id "+str(bkID)+" is available for checkout")
+                else:
+                    output("All copies of the book id "+str(bkID)+" have been checked out")            
+            elif bkID<eNode.bookID:
+            # First recur on left child 
+                self._findBook(eNode.left, bkID)
+            else:
+            # now recur on right child 
+                self._findBook(eNode.right, bkID) 
+        else:
+            output("Book id "+str(bkID)+" does not exist")
+
+    def _topN(self, bkNode, n):
+        a = []
+        if not bkNode:
+            return 
+
+    def _getTopBooks(self, bkNode):
+        if bkNode: 
             
+            # First recur on left child 
+            self._getTopBooks(bkNode.left) 
+            
+            # then print the data of node      
+            self.topN(bkNode, 3)
+            
+            # now recur on right child 
+            self._getTopBooks(bkNode.right) 
+
 def output(text):
     with open('../data_files/outputPS6.txt', 'a+') as outf:
         outf.write(text+"\n") 
@@ -58,7 +91,7 @@ def output(text):
 def main():
     # Code to create the binary tree
     with open('../data_files/inputPS6.txt') as inpf:
-        bkId,availCount = inpf.readline().split(",")
+        bkId, availCount = inpf.readline().split(",")
         print(bkId,availCount)
         root = bookNode(int(bkId), int(availCount))
         counter = 1
@@ -72,14 +105,17 @@ def main():
 #    if not os.path.exists('../data_files/outputPS6.txt'):
 #        os.mkdir('../data_files/outputPS6.txt')
     
-    with open('../data_files/prompts_printInventory.txt', 'r') as prof:
+    with open('../data_files/prompts_find.txt', 'r') as prof:
         for line in prof.readlines():
             print(line)
             if "check" in line:
                 print('check')
 #                    call check in out function and dont write in output file
-            elif "find" in line:
-                print('find')
+            elif "findBook" in line:
+#               cleaning the line text
+                line.replace(" ","")
+                label, bkID = line.split(":")
+                root._findBook(root, int(bkID)) 
 #                call find book function
             elif "ListTopBooks" in line:
                 print('list top')
