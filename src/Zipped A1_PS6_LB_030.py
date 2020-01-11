@@ -42,7 +42,7 @@ class bookNode:
       
             # now recur on right child 
             self._printBooks(bkNode.right) 
-        
+
 #def_chkInChkOut(self, bkID, inOut):
 
 #def _getTopBooks(self, bkNode):
