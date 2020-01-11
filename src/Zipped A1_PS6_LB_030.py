@@ -31,17 +31,17 @@ class bookNode:
                 else: 
                    self.left._readBookList(bkID, availCount)
 
-    def _printBooks(self, bkNode):
+    def printBooks(self, bkNode):
         if bkNode: 
             
             # First recur on left child 
-            self._printBooks(bkNode.left) 
+            self.printBooks(bkNode.left) 
       
             # then print the data of node 
-            print(bkNode.bookID)
+            print(bkNode.bookID, bkNode.avCntr)
       
             # now recur on right child 
-            self._printBooks(bkNode.right) 
+            self.printBooks(bkNode.right) 
 
 #def_chkInChkOut(self, bkID, inOut):
 
@@ -54,16 +54,17 @@ class bookNode:
 #def _stockOut(self, eNode):
 #
 def main():
-    # Read 
+    # Code to create the binary tree
     with open('../data_files/inputPS6.txt') as f:
         bkId,availCount = f.readline().split(",")
+        print(bkId,availCount)
         root = bookNode(int(bkId), int(availCount))
         for line in f.readlines():
             bkId,availCount = line.split(",")
-#            print(bkId, availCount)
+            print(bkId, availCount)
             root._readBookList(int(bkId), int(availCount))
     
-    root._printBooks(root)
+    root.printBooks(root)
     
 if __name__=="__main__":
     main()
