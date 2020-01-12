@@ -3,43 +3,14 @@ Top Books 2: 100003,2
 Top Books 3: 100002,1
 List of Books not issued:
 100004
-100006
-100007
-100008
-100009
-100010
-100011
-100012
-100013
-100014
-100015
-100016
-100017
-100018
 100019
 100020
-Book id 100006 is available for checkout
+Book id 100006 does not exist
 All available copies of the below books have been checked out:
-100008
-100013
-There are a total of 20 book titles in the library.
+There are a total of 6 book titles in the library.
 100001,1
 100002,5
 100003,13
 100004,12
-100005,3
-100006,4
-100007,5
-100008,0
-100009,12
-100010,23
-100011,11
-100012,4
-100013,0
-100014,11
-100015,30
-100016,4
-100017,5
-100018,11
 100019,12
 100020,31

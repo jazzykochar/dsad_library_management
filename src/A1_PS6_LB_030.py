@@ -161,30 +161,28 @@ def main():
     # Code to create the binary tree
     with open('../data_files/inputPS6.txt') as inpf:
         bkId, availCount = inpf.readline().split(",")
-        print(bkId,availCount)
         root = bookNode(int(bkId), int(availCount))
         counter = 1
         for i, line in enumerate(inpf.readlines()):
             counter = counter + 1
             bkId,availCount = line.split(",")
-            print(bkId, availCount)
             root._readBookList(int(bkId), int(availCount))
     
     with open('../data_files/promptsPS6.txt', 'r') as prof:
         for line in prof.readlines():
             print(line)
             if "check" in line:
-                #cleaning the line text
+                #cleaning the line text - harshit
                 line.replace(" ","")
                 label, bkID = line.split(":")
                 root._chkInChkOut(int(bkID), label)                
             elif "findBook" in line:
-#               cleaning the line text
+#               cleaning the line text - harshit
                 line.replace(" ","")
                 label, bkID = line.split(":")
                 root._findBook(root, int(bkID)) 
 #                call find book function
-            elif "ListTopBooks" in line:
+            elif "ListTopBooks" in line:# harshit
                 global first, second, third
                 first,second, third = None, None, None
                 root._getTopBooks(root)
