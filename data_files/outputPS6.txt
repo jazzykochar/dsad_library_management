@@ -3,7 +3,7 @@ There are a total of 20 book titles in the library.
 100002,5
 100003,13
 100004,12
-100005,2
+100005,1
 100006,4
 100007,5
 100008,0
@@ -20,8 +20,8 @@ There are a total of 20 book titles in the library.
 100019,12
 100020,31
 Top Books 1: 100001,5
-Top Books 2: 100001,5
-Top Books 3: 100001,5
+Top Books 2: 100005,3
+Top Books 3: 100002,1
 Book id 100006 is available for checkout
 All available copies of the below books have been checked out:
 100001
@@ -32,7 +32,7 @@ There are a total of 20 book titles in the library.
 100002,5
 100003,13
 100004,12
-100005,2
+100005,1
 100006,4
 100007,5
 100008,0

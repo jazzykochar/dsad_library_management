@@ -7,6 +7,8 @@ D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
 stockout_count = 0
 first, second, third = None, None, None
+
+
 stockout_list =[]
 class bookNode:
     def __init__(self, bkID, availCount):
@@ -47,8 +49,8 @@ class bookNode:
     
     def _findBook(self, eNode, bkID):
         if eNode: 
-            if eNode.bookID==bkID:
-                if eNode.avCntr>0:
+            if eNode.bookID == bkID:
+                if eNode.avCntr > 0:
                     output("Book id "+str(bkID)+" is available for checkout")
                 else:
                     output("All copies of the book id "+str(bkID)+" have been checked out")            
@@ -68,16 +70,27 @@ class bookNode:
             self._getTopBooks(bkNode.left) 
       
             # then process the data of node
-            if bkNode.chkOutCntr > first.chkOutCntr:
-                third = second
-                second = first
+            if first == None:
                 first = bkNode
-            elif bkNode.chkOutCntr > second.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr:
-                third = second
-                second = bkNode
-            elif bkNode.chkOutCntr > third.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr and bkNode.chkOutCntr != second.chkOutCntr:
+            elif second == None:
+                if first.chkOutCntr < bkNode.chkOutCntr:
+                    second = bkNode
+            elif third == None:
                 third = bkNode
-            
+                
+            else:  
+                if bkNode.chkOutCntr > first.chkOutCntr:
+                    third = second
+                    second = first
+                    first = bkNode
+                elif bkNode.chkOutCntr > second.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr:
+                    third = second
+                    second = bkNode
+                elif bkNode.chkOutCntr > third.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr and bkNode.chkOutCntr != second.chkOutCntr:
+                    third = bkNode
+       
+       
+           
             # now recur on right child 
             self._getTopBooks(bkNode.right) 
 
@@ -170,9 +183,10 @@ def main():
 #                call find book function
             elif "ListTopBooks" in line:
                 global first, second, third
-                first = root
-                second = root
-                third = root
+       
+                first = None
+                second = None
+                third = None
                 root._getTopBooks(root)
                 output("Top Books 1: "+str(first.bookID)+","+str(first.chkOutCntr))
                 output("Top Books 2: "+str(second.bookID)+","+str(second.chkOutCntr))
