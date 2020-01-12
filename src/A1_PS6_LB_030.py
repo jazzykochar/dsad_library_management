@@ -72,8 +72,8 @@ class bookNode:
         
 
         Args:
-            eNode (TYPE): DESCRIPTION.
-            bkID (TYPE): DESCRIPTION.
+            eNode (bookNode): DESCRIPTION.
+            bkID (string): book id to search.
 
         Returns:
             None.
@@ -97,10 +97,10 @@ class bookNode:
 
     def _getTopBooks(self, bkNode):
         """
-        
+        Function to get top 3 books which were checkout maximum number of times.
 
         Args:
-            bkNode (TYPE): DESCRIPTION.
+            bkNode (bookNode): root of the tree.
 
         Returns:
             None.
@@ -180,6 +180,18 @@ class bookNode:
             output(str(bkNode.bookID))
 
     def _chkInChkOut(self, bkID, inOut):
+        """
+        Function that performs check in and check out.
+
+        Args:
+            bkID (bookNode): root of the tree.
+            inOut (string): checkin checkout switch.
+
+        Returns:
+            None.
+
+        """
+        
         node = self._getNode(self, bkID)
         if node:
             if inOut == 'checkIn':
@@ -190,24 +202,24 @@ class bookNode:
             else:
                 print('Please correct above line in prompts file as \''+str(inOut)+'\' with booking Id:\''+str(bkID)+'\' is not parseable')
         
-    def _getNode(self, eNode , bkID):
+    def _getNode(self, eNode, bkID):
         """
-        
+        function to search a book according to book id.
 
         Args:
-            eNode (TYPE): DESCRIPTION.
-            bkID (TYPE): DESCRIPTION.
+            eNode (bookNode): root of the tree.
+            bkID (int): book id under search.
 
         Returns:
-            TYPE: DESCRIPTION.
+            bookNode: node satisfying the search criteria.return none in case no book satisfies the criteria.
 
         """
         
         if eNode: 
-            if eNode.bookID==bkID:
+            if eNode.bookID == bkID:
                 return eNode
             
-            elif bkID<eNode.bookID:
+            elif bkID < eNode.bookID:
             # First recur on left child 
                 return self._getNode(eNode.left, bkID)
             else:
