@@ -1,16 +1,15 @@
 def _readBookList(self, bkID, availCount): 
-We have structured our libary's book data in the form of BST based on bookID
-the complexity of populating the tree is O(n).
+We have structured our libary's book data in the form of BST based on bookID and the complexity of populating the tree is O(n).
 
 def_chkInChkOut(self, bkID, inOut):
 The purpose of this function is to find the particular book and perform check in or check out on that particular book.
 the complexity of searching a node in an binary tree depend upon the input over which tree is created if tree is created
 over random data and tree thus formed is balanced then searching a particular node have complexity ~ O(logn)
-but in case data is sorted over the key then that data will result in skewed BST. searching a node in skewed BST in worst case its 
+but in case data is sorted over the key then that data will result in skewed BST. Searching a node in skewed BST in worst case its 
 complexity is O(n)
 
 def _getTopBooks(self, bkNode):
-This function will traverse  all the nodes of the BST and track highest, second higehest and third highest checkout counter for a 
+This function will traverse all the nodes of the BST and track highest, second higehest and third highest checkout counter for a 
 book, as we have to traverse over all the elements of the tree once so time complexity of this function is O(n)
  
 def _notIssued(self, bkNode):
@@ -19,12 +18,11 @@ book, as we have to traverse over all the elements of the tree once so time comp
 
 def _findBook(self, eNode, bkID):
 This function searches infomation about a particular book, we have to search bkID in BST and tree is created over bkID so in best case 
-it can give time complexity of O(logn) when tree formed is balanced but in worst case it will give time complexity of O(n) if data thru which 
-tree is create is in sorted order.
+it can give time complexity of O(logn) when tree formed is balanced but in worst case it will give time complexity of O(n) if data through which tree is created is in sorted order.
 
 def _stockOut(self, eNode):
 This function will traverse  all the nodes of the BST and track if availCount's value is zero for a 
 book, as we have to traverse over all the elements of the tree once so time complexity of this function is O(n)
 
 def printBooks(self, bkNode):
-in this function we have to traverse over  complete tree so its time complexity O(n)
+In this function we have to traverse over complete tree and print the node's bookID and availCounter so its time complexity O(n)
