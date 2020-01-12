@@ -7,7 +7,6 @@ D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
 first, second, third = None, None, None
 
-
 class bookNode:
     def __init__(self, bkID, availCount):
         self.bookID = bkID
