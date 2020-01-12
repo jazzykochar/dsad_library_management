@@ -7,6 +7,7 @@ D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
 first, second, third = None, None, None
 
+
 class bookNode:
     def __init__(self, bkID, availCount):
         self.bookID = bkID
@@ -14,14 +15,26 @@ class bookNode:
         self.chkOutCntr = 0
         self.left = None
         self.right = None
-                    
+
     def _readBookList(self, bkID, availCount):
+        """
+        
+
+        Args:
+            bkID (TYPE): DESCRIPTION.
+            availCount (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
+        
         node = bookNode(bkID, availCount)
-        if self is None: 
-            self = node 
-        else: 
-            if self.bookID < node.bookID: 
-                if self.right is None: 
+        if self is None:
+            self = node
+        else:
+            if self.bookID < node.bookID:
+                if self.right is None:
                     self.right = node 
                 else: 
                     self.right._readBookList(bkID, availCount) 
@@ -30,20 +43,43 @@ class bookNode:
                     self.left = node 
                 else: 
                    self.left._readBookList(bkID, availCount)
-                   
+
     def printBooks(self, bkNode):
+        """
+        
+
+        Args:
+            bkNode (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
+        
         if bkNode: 
-            
+
             # First recur on left child 
             self.printBooks(bkNode.left) 
-      
+
             # then print the data of node      
             output(str(bkNode.bookID)+","+str(bkNode.avCntr))
-            
+
             # now recur on right child 
             self.printBooks(bkNode.right) 
     
     def _findBook(self, eNode, bkID):
+        """
+        
+
+        Args:
+            eNode (TYPE): DESCRIPTION.
+            bkID (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
+        
         if eNode: 
             if eNode.bookID == bkID:
                 if eNode.avCntr > 0:
@@ -60,6 +96,17 @@ class bookNode:
             output("Book id "+str(bkID)+" does not exist")
 
     def _getTopBooks(self, bkNode):
+        """
+        
+
+        Args:
+            bkNode (TYPE): DESCRIPTION.
+
+        Returns:
+            None.
+
+        """
+        
         global first, second, third 
         if bkNode: 
             # First recur on left child 
@@ -99,15 +146,36 @@ class bookNode:
             self._getTopBooks(bkNode.right) 
 
     def _stockOut(self, bkNode):
-         if bkNode: 
+        """
+        function to find book for which are currently not available in 
+        the library.It accepts root of the tree and print all books satisfying
+        the criteria.
+
+        Args:
+            bkNode (bookNode): root of the tree.
+
+        Returns:
+            None.
+        """
+        if bkNode:
             # First recur on left child 
             self._stockOut(bkNode.left) 
-            # then print the data of node      
+            # then process the data of node
             self._processStockOut(bkNode)
             # now recur on right child 
             self._stockOut(bkNode.right)
  
-    def _processStockOut(self,bkNode):
+    def _processStockOut(self, bkNode):
+        """
+        function handles printing of out of stock books
+        Args:
+            bkNode (bookNode): root of the tree.
+
+        Returns:
+            None.
+
+        """
+
         if bkNode.avCntr == 0:
             output(str(bkNode.bookID))
 
@@ -123,6 +191,18 @@ class bookNode:
                 print('Please correct above line in prompts file as \''+str(inOut)+'\' with booking Id:\''+str(bkID)+'\' is not parseable')
         
     def _getNode(self, eNode , bkID):
+        """
+        
+
+        Args:
+            eNode (TYPE): DESCRIPTION.
+            bkID (TYPE): DESCRIPTION.
+
+        Returns:
+            TYPE: DESCRIPTION.
+
+        """
+        
         if eNode: 
             if eNode.bookID==bkID:
                 return eNode
@@ -137,6 +217,17 @@ class bookNode:
             return None
         
     def _notIssued(self, bkNode):
+        """
+        Recursive function to search book that hasn't been checkout.
+
+        Args:
+            bkNode (bookNode): root of the tree.
+
+        Returns:
+            None.
+
+        """
+        
         if bkNode:
         #First recur on left child 
             self._notIssued(bkNode.left) 
@@ -150,6 +241,17 @@ class bookNode:
             output(str(bkNode.bookID))
         
 def output(text):
+    """
+    this function writes data to file
+
+    Args:
+        text (string): string to write in the file.
+
+    Returns:
+        None.
+
+    """
+    
     parentFolder = '../data_files/'
     outputFile = 'outputPS6.txt'
     with open(parentFolder+outputFile, 'a+') as outf:
