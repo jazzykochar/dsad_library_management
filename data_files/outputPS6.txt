@@ -1,16 +1,70 @@
 Top Books 1: 100001,4
 Top Books 2: 100003,2
-Top Books 3: 100002,1
+Top Books 3: 100005,1
 List of Books not issued:
+100002
 100004
+100006
+100007
+100008
+100009
+100010
+100011
+100012
+100013
+100014
+100015
+100016
+100017
+100018
 100019
 100020
-Book id 100006 does not exist
+Book id 100000 does not exist
 All available copies of the below books have been checked out:
-There are a total of 6 book titles in the library.
-100001,1
+100014
+100015
+Book id 100017 is available for checkout
+All available copies of the below books have been checked out:
+100007
+100014
+100015
+List of Books not issued:
+100002
+100004
+100006
+100008
+100009
+100010
+100011
+100012
+100013
+100015
+100016
+100017
+100018
+100019
+100020
+Top Books 1: 100001,4
+Top Books 2: 100003,2
+Top Books 3: 100005,2
+There are a total of 20 book titles in the library.
+100001,2
 100002,5
 100003,13
 100004,12
-100019,12
-100020,31
+100005,1
+100006,5
+100007,0
+100008,5
+100009,2
+100010,4
+100011,9
+100012,2
+100013,3
+100014,0
+100015,0
+100016,15
+100017,10
+100018,4
+100019,8
+100020,2
