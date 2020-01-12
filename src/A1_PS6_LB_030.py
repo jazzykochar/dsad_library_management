@@ -263,7 +263,7 @@ def output(text):
 
     """
     
-    parentFolder = '../data_files/'
+    parentFolder = ''
     outputFile = 'outputPS6.txt'
     with open(parentFolder+outputFile, 'a+') as outf:
         outf.write(text+"\n") 
@@ -271,11 +271,12 @@ def output(text):
 def main():
     
     # Path of parent folder for datasets and filenames  
-    parentFolderPath = '../data_files/'
+    parentFolderPath = ''
     inputFileName = 'inputPS6.txt'
     promptsFileName = 'promptsPS6.txt'
+    outputFile = 'outputPS6.txt'
     
-    #Code to read th input file and create a bst using bookId
+    #Code to read the input file and create a bst using bookId
     try:
         with open(parentFolderPath+inputFileName, 'r') as inpf:
             firstLine = inpf.readline()
@@ -310,8 +311,11 @@ def main():
     except:
         print('Exception occured while processing input file and creating bst. Please correct input file as per PS6')
         
-    # Code to read the prompts file
     try:
+       # Code to clean the output file if present
+       if os.path.isfile(parentFolderPath+outputFile):
+            os.remove(parentFolderPath+outputFile)
+       # Code to read the prompts file 
         with open(parentFolderPath+promptsFileName, 'r') as prof:
             lines = prof.readlines()
             if not lines:
