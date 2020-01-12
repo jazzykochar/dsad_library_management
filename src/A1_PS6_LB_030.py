@@ -72,10 +72,10 @@ class bookNode:
                 third = second
                 second = first
                 first = bkNode
-            elif bkNode.chkOutCntr > second.chkOutCntr:
+            elif bkNode.chkOutCntr > second.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr:
                 third = second
                 second = bkNode
-            elif bkNode.chkOutCntr > third.chkOutCntr:
+            elif bkNode.chkOutCntr > third.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr and bkNode.chkOutCntr != second.chkOutCntr:
                 third = bkNode
             
             # now recur on right child 
@@ -100,7 +100,7 @@ class bookNode:
 #            print(bkNode.bookID)
 
     def _chkInChkOut(self, bkID, inOut):
-        node = self._getNode(self , bkID)
+        node = self._getNode(self, bkID)
         if node:
             if inOut == 'checkIn':
                 print('avail counter: ', node.avCntr)
@@ -117,10 +117,10 @@ class bookNode:
             
             elif bkID<eNode.bookID:
             # First recur on left child 
-                self._getNode(eNode.left, bkID)
+                return self._getNode(eNode.left, bkID)
             else:
             # now recur on right child 
-                self._getNode(eNode.right, bkID) 
+                return self._getNode(eNode.right, bkID) 
         else:
             return None
         
@@ -159,10 +159,8 @@ def main():
             print(line)
             if "check" in line:
                 #cleaning the line text
-                print('inside check')
                 line.replace(" ","")
                 label, bkID = line.split(":")
-                print(label, bkID)
                 root._chkInChkOut(int(bkID), label)                
             elif "findBook" in line:
 #               cleaning the line text
@@ -171,13 +169,14 @@ def main():
                 root._findBook(root, int(bkID)) 
 #                call find book function
             elif "ListTopBooks" in line:
+                global first, second, third
                 first = root
                 second = root
                 third = root
                 root._getTopBooks(root)
-                output("Top Books 1: ", first.bookID, ",", first.chkOutCntr)
-                output("Top Books 2: ", second.bookID, ",", second.chkOutCntr)
-                output("Top Books 3: ", third.bookID, ",", third.chkOutCntr)
+                output("Top Books 1: "+str(first.bookID)+","+str(first.chkOutCntr))
+                output("Top Books 2: "+str(second.bookID)+","+str(second.chkOutCntr))
+                output("Top Books 3: "+str(third.bookID)+","+str(third.chkOutCntr))
                 print('list top')
 #                Call function list top books
             elif "BooksNotIssued" in line:
