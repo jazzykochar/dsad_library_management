@@ -1,8 +1,13 @@
 checkOut: 100001
-checkOut: 100001
-checkOut: 100001
+checkOut: 100002
 checkOut: 100003
+checkOut: 100003
+checkOut: 100001
+checkOut: 100001
+checkOut: 100001
 checkOut: 100005
+checkIn: 100001
+checkIn: 100002
 ListTopBooks
 BooksNotIssued
 findBook: 100006
