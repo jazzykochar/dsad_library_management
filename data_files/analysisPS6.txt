@@ -1,9 +1,9 @@
 def _readBookList(self, bkID, availCount): 
-We have structured our libary's book data in the form of BST
+We have structured our libary's book data in the form of BST based on bookID
 the complexity of populating the tree is O(n).
 
 def_chkInChkOut(self, bkID, inOut):
-the purpose of this function is to find the particular book and perform check in or check out on that particular book.
+The purpose of this function is to find the particular book and perform check in or check out on that particular book.
 the complexity of searching a node in an binary tree depend upon the input over which tree is created if tree is created
 over random data and tree thus formed is balanced then searching a particular node have complexity ~ O(logn)
 but in case data is sorted over the key then that data will result in skewed BST. searching a node in skewed BST in worst case its 
