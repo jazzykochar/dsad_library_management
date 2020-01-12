@@ -139,6 +139,20 @@ class bookNode:
         else:
             return None
         
+    def _notIssued(self, bkNode):
+        if bkNode:
+        #First recur on left child 
+            self._notIssued(bkNode.left) 
+        #then print the data of node      
+            self._processnotIssued(bkNode)
+        # now recur on right child 
+            self._notIssued(bkNode.right)
+             
+    def _processnotIssued(self,bkNode):
+        
+        if bkNode.chkOutCntr == 0:
+            output(str(bkNode.bookID))
+        
 def output(text):
     with open('../data_files/outputPS6.txt', 'a+') as outf:
         outf.write(text+"\n") 
@@ -179,7 +193,8 @@ def main():
                 output("Top Books 3: "+str(third.bookID)+","+str(third.chkOutCntr))
 #                Call function list top books
             elif "BooksNotIssued" in line:
-                print('not issued')
+                output('List of Books not issued:')
+                root._notIssued(root)
 #                call book not issued
             elif "ListStockOut" in line:
                 output("All available copies of the below books have been checked out:")
