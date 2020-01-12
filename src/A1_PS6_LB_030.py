@@ -18,11 +18,11 @@ class bookNode:
 
     def _readBookList(self, bkID, availCount):
         """
-        
+        This function read the book name and its available count.
 
         Args:
-            bkID (TYPE): DESCRIPTION.
-            availCount (TYPE): DESCRIPTION.
+            bkID (int): id of the book.
+            availCount (int): available count of the book.
 
         Returns:
             None.
@@ -46,10 +46,10 @@ class bookNode:
 
     def printBooks(self, bkNode):
         """
-        
+        This function prints all the files to output file.
 
         Args:
-            bkNode (TYPE): DESCRIPTION.
+            bkNode (bookNode): root of the tree.
 
         Returns:
             None.
@@ -69,10 +69,10 @@ class bookNode:
     
     def _findBook(self, eNode, bkID):
         """
-        
+        function to find the book in BST
 
         Args:
-            eNode (bookNode): DESCRIPTION.
+            eNode (bookNode): root of the tree.
             bkID (string): book id to search.
 
         Returns:
