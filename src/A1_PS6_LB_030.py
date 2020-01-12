@@ -5,10 +5,8 @@ Created on Fri Jan 10 23:37:14 2020
 @author: sidus
 D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
-stockout_count = 0
 first, second, third = None, None, None
 
-stockout_list =[]
 class bookNode:
     def __init__(self, bkID, availCount):
         self.bookID = bkID
@@ -18,7 +16,6 @@ class bookNode:
         self.right = None
                     
     def _readBookList(self, bkID, availCount):
-        
         node = bookNode(bkID, availCount)
         if self is None: 
             self = node 
@@ -118,12 +115,12 @@ class bookNode:
         node = self._getNode(self, bkID)
         if node:
             if inOut == 'checkIn':
-                print('avail counter: ', node.avCntr)
                 node.avCntr = node.avCntr + 1
             elif inOut == 'checkOut':
-                print('avail counter: ', node.avCntr)
                 node.avCntr = node.avCntr - 1
                 node.chkOutCntr = node.chkOutCntr + 1
+            else:
+                print('Please correct above line in prompts file as \''+str(inOut)+'\' with booking Id:\''+str(bkID)+'\' is not parseable')
         
     def _getNode(self, eNode , bkID):
         if eNode: 
@@ -149,59 +146,102 @@ class bookNode:
             self._notIssued(bkNode.right)
              
     def _processnotIssued(self,bkNode):
-        
         if bkNode.chkOutCntr == 0:
             output(str(bkNode.bookID))
         
 def output(text):
-    with open('../data_files/outputPS6.txt', 'a+') as outf:
+    parentFolder = '../data_files/'
+    outputFile = 'outputPS6.txt'
+    with open(parentFolder+outputFile, 'a+') as outf:
         outf.write(text+"\n") 
 
 def main():
-    # Code to create the binary tree
-    with open('../data_files/inputPS6.txt') as inpf:
-        bkId, availCount = inpf.readline().split(",")
-        root = bookNode(int(bkId), int(availCount))
-        counter = 1
-        for i, line in enumerate(inpf.readlines()):
-            counter = counter + 1
-            bkId,availCount = line.split(",")
-            root._readBookList(int(bkId), int(availCount))
     
-    with open('../data_files/promptsPS6.txt', 'r') as prof:
-        for line in prof.readlines():
-            print(line)
-            if "check" in line:
-                #cleaning the line text - harshit
-                line.replace(" ","")
-                label, bkID = line.split(":")
-                root._chkInChkOut(int(bkID), label)                
-            elif "findBook" in line:
-#               cleaning the line text - harshit
-                line.replace(" ","")
-                label, bkID = line.split(":")
-                root._findBook(root, int(bkID)) 
-#                call find book function
-            elif "ListTopBooks" in line:# harshit
-                global first, second, third
-                first,second, third = None, None, None
-                root._getTopBooks(root)
-                output("Top Books 1: "+str(first.bookID)+","+str(first.chkOutCntr))
-                output("Top Books 2: "+str(second.bookID)+","+str(second.chkOutCntr))
-                output("Top Books 3: "+str(third.bookID)+","+str(third.chkOutCntr))
-#                Call function list top books
-            elif "BooksNotIssued" in line:
-                output('List of Books not issued:')
-                root._notIssued(root)
-#                call book not issued
-            elif "ListStockOut" in line:
-                output("All available copies of the below books have been checked out:")
-                root._stockOut(root)
-            elif "printInventory" in line:
-                output("There are a total of "+str(counter)+" book titles in the library.")
-                root.printBooks(root)
+    # Path of parent folder for datasets and filenames  
+    parentFolderPath = '../data_files/'
+    inputFileName = 'inputPS6.txt'
+    promptsFileName = 'promptsPS6.txt'
+    
+    #Code to read th input file and create a bst using bookId
+    try:
+        with open(parentFolderPath+inputFileName, 'r') as inpf:
+            firstLine = inpf.readline()
+            if not firstLine:
+                print('Input file is empty ! Please add some books and their available counts in inputsPS6.txt')
             else:
-                continue
+                if ',' in firstLine:
+                    print('Processing input line: ', firstLine)
+                    firstLine.replace(" ","")
+                    bkId, availCount = firstLine.split(",")
+                    root = bookNode(int(bkId), int(availCount))
+                    counter = 1
+                    for i, line in enumerate(inpf.readlines()):
+                        counter = counter + 1
+                        if ',' in line:
+                            line.replace(" ","")
+                            print('Processing input line: ', line)
+                            bkId,availCount = line.split(",")
+                            root._readBookList(int(bkId), int(availCount))
+                        else:
+                            print('Line: ', i+2, ' in '+inputFileName+' not procesed ! Please use , as separator')
+                    print('Binary Search Tree created successfully based on book Id !!')
+                else:
+                    print('Please use , as separator in inputfile')
+
+    except FileNotFoundError:
+        print('Input file does not exist !')
+        if parentFolderPath == '':
+            print('Please add an inputPS6.txt file in same directory as the python file')
+        else:
+            print('Please add an inputPS6.txt file in '+parentFolderPath+' directory')
+    except:
+        print('Exception occured while processing input file and creating bst. Please correct input file as per PS6')
+        
+    # Code to read the prompts file
+    try:
+        with open(parentFolderPath+promptsFileName, 'r') as prof:
+            lines = prof.readlines()
+            if not lines:
+                print('Prompts file is empty ! Please add some prompts in promptsPS6.txt')
+            else:
+                for line in lines:
+                    print('Processing prompt line: ', line)
+                    if "check" in line:
+                        #cleaning the line text
+                        line.replace(" ","")
+                        label, bkID = line.split(":")
+                        root._chkInChkOut(int(bkID), label)                
+                    elif "findBook" in line:
+                        line.replace(" ","")
+                        label, bkID = line.split(":")
+                        root._findBook(root, int(bkID)) 
+                    elif "ListTopBooks" in line:
+                        global first, second, third
+                        first,second, third = None, None, None
+                        root._getTopBooks(root)
+                        output("Top Books 1: "+str(first.bookID)+","+str(first.chkOutCntr))
+                        output("Top Books 2: "+str(second.bookID)+","+str(second.chkOutCntr))
+                        output("Top Books 3: "+str(third.bookID)+","+str(third.chkOutCntr))
+                    elif "BooksNotIssued" in line:
+                        output('List of Books not issued:')
+                        root._notIssued(root)
+                    elif "ListStockOut" in line:
+                        output("All available copies of the below books have been checked out:")
+                        root._stockOut(root)
+                    elif "printInventory" in line:
+                        output("There are a total of "+str(counter)+" book titles in the library.")
+                        root.printBooks(root)
+                    else:
+                        print('Please correct above line in prompts file as it not in correct format')
+        print('Program execution completed !!')
+    except FileNotFoundError:
+        print('Prompts file does not exist !')
+        if parentFolderPath == '':
+            print('Please add an promptsPS6.txt file in same directory as the python file')
+        else:
+            print('Please add an promptsPS6.txt file in '+parentFolderPath+' directory')
+    except:
+        print('An Exception occured while processing prompts file. Kindly refer to format specified in assignment PS6')
 
 if __name__=="__main__":
     main()
