@@ -6,6 +6,7 @@ Created on Fri Jan 10 23:37:14 2020
 D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 """
 stockout_count = 0
+first, second, third = None, None, None
 stockout_list =[]
 class bookNode:
     def __init__(self, bkID, availCount):
@@ -64,7 +65,7 @@ class bookNode:
         global first, second, third 
         if bkNode: 
             # First recur on left child 
-            self.printBooks(bkNode.left) 
+            self._getTopBooks(bkNode.left) 
       
             # then process the data of node
             if bkNode.chkOutCntr > first.chkOutCntr:
@@ -78,7 +79,7 @@ class bookNode:
                 third = bkNode
             
             # now recur on right child 
-            self.printBooks(bkNode.right) 
+            self._getTopBooks(bkNode.right) 
 
     def _stockOut(self, bkNode):
          if bkNode: 
@@ -102,8 +103,10 @@ class bookNode:
         node = self._getNode(self , bkID)
         if node:
             if inOut == 'checkIn':
+                print('avail counter: ', node.avCntr)
                 node.avCntr = node.avCntr + 1
             elif inOut == 'checkOut':
+                print('avail counter: ', node.avCntr)
                 node.avCntr = node.avCntr - 1
                 node.chkOutCntr = node.chkOutCntr + 1
         
@@ -114,12 +117,11 @@ class bookNode:
             
             elif bkID<eNode.bookID:
             # First recur on left child 
-                self._findBook(eNode.left, bkID)
+                self._getNode(eNode.left, bkID)
             else:
             # now recur on right child 
-                self._findBook(eNode.right, bkID) 
+                self._getNode(eNode.right, bkID) 
         else:
-            output("Book id "+str(bkID)+" does not exist") 
             return None
         
 def output(text):
@@ -155,20 +157,13 @@ def main():
     with open('../data_files/promptsPS6.txt', 'r') as prof:
         for line in prof.readlines():
             print(line)
-            if "checkIn" in line:
+            if "check" in line:
                 #cleaning the line text
+                print('inside check')
                 line.replace(" ","")
                 label, bkID = line.split(":")
-                root._chkInChkOut(root, int(bkID),'checkIn')
-#                    call check in out function and dont write in output file
-            
-            elif "checkOut" in line:
-                #cleaning the line text
-                line.replace(" ","")
-                label, bkID = line.split(":")
-                root._chkInChkOut(root, int(bkID),'checkOut')
-#                    call check in out function and dont write in output file
-                
+                print(label, bkID)
+                root._chkInChkOut(int(bkID), label)                
             elif "findBook" in line:
 #               cleaning the line text
                 line.replace(" ","")
@@ -194,7 +189,6 @@ def main():
 #                print(stockout_count)
 #                for i in stockout_list: 
 #                    print(i.bookID) 
-    
             elif "printInventory" in line:
                 output("There are a total of "+str(counter)+" book titles in the library.")
                 root.printBooks(root)
