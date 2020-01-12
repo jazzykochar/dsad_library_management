@@ -8,7 +8,6 @@ D:\MtechDS\Sem1\DSAD\Assignment\Assignment1Solution\dsad_library_management\src
 stockout_count = 0
 first, second, third = None, None, None
 
-
 stockout_list =[]
 class bookNode:
     def __init__(self, bkID, availCount):
@@ -68,29 +67,37 @@ class bookNode:
         if bkNode: 
             # First recur on left child 
             self._getTopBooks(bkNode.left) 
-      
-            # then process the data of node
+            
             if first == None:
                 first = bkNode
             elif second == None:
                 if first.chkOutCntr < bkNode.chkOutCntr:
+                    second = first
+                    first = bkNode
+                else:
                     second = bkNode
             elif third == None:
-                third = bkNode
-                
-            else:  
+                if second.chkOutCntr < bkNode.chkOutCntr:
+                    third = second
+                    if first.chkOutCntr < bkNode.chkOutCntr:
+                        second = first
+                        first = bkNode
+                    else:
+                        second = bkNode
+                else:
+                    third = bkNode
+            else:
+                # then process the data of node
                 if bkNode.chkOutCntr > first.chkOutCntr:
                     third = second
                     second = first
                     first = bkNode
-                elif bkNode.chkOutCntr > second.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr:
+                elif bkNode.chkOutCntr > second.chkOutCntr:
                     third = second
                     second = bkNode
-                elif bkNode.chkOutCntr > third.chkOutCntr and bkNode.chkOutCntr != first.chkOutCntr and bkNode.chkOutCntr != second.chkOutCntr:
+                elif bkNode.chkOutCntr > third.chkOutCntr:
                     third = bkNode
        
-       
-           
             # now recur on right child 
             self._getTopBooks(bkNode.right) 
 
@@ -103,14 +110,9 @@ class bookNode:
             # now recur on right child 
             self._stockOut(bkNode.right)
  
-            
     def _processStockOut(self,bkNode):
-#        global stockout_count
         if bkNode.avCntr == 0:
-#            stockout_list.append(bkNode)  
-#            stockout_count = stockout_count +1
             output(str(bkNode.bookID))
-#            print(bkNode.bookID)
 
     def _chkInChkOut(self, bkID, inOut):
         node = self._getNode(self, bkID)
@@ -141,15 +143,6 @@ def output(text):
     with open('../data_files/outputPS6.txt', 'a+') as outf:
         outf.write(text+"\n") 
 
-#def _getTopBooks(self, bkNode):
-#
-#def _notIssued(self, bkNode):
-#    
-#def _findBook(self, eNode, bkID):
-#
-   
-        
-#
 def main():
     # Code to create the binary tree
     with open('../data_files/inputPS6.txt') as inpf:
@@ -162,10 +155,6 @@ def main():
             bkId,availCount = line.split(",")
             print(bkId, availCount)
             root._readBookList(int(bkId), int(availCount))
-    
-#    Code to create output directory
-#    if not os.path.exists('../data_files/outputPS6.txt'):
-#        os.mkdir('../data_files/outputPS6.txt')
     
     with open('../data_files/promptsPS6.txt', 'r') as prof:
         for line in prof.readlines():
@@ -183,10 +172,7 @@ def main():
 #                call find book function
             elif "ListTopBooks" in line:
                 global first, second, third
-       
-                first = None
-                second = None
-                third = None
+                first,second, third = None, None, None
                 root._getTopBooks(root)
                 output("Top Books 1: "+str(first.bookID)+","+str(first.chkOutCntr))
                 output("Top Books 2: "+str(second.bookID)+","+str(second.chkOutCntr))
@@ -198,19 +184,11 @@ def main():
             elif "ListStockOut" in line:
                 output("All available copies of the below books have been checked out:")
                 root._stockOut(root)
-#                print(stockout_count)
-#                for i in stockout_list: 
-#                    print(i.bookID) 
             elif "printInventory" in line:
                 output("There are a total of "+str(counter)+" book titles in the library.")
                 root.printBooks(root)
             else:
                 continue
-    
+
 if __name__=="__main__":
     main()
-        
-            
-    # Df to Book Node
-    
-#    _readBookList(bkID, availCount)
