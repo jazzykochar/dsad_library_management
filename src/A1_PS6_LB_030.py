@@ -191,7 +191,6 @@ def main():
                 output("Top Books 1: "+str(first.bookID)+","+str(first.chkOutCntr))
                 output("Top Books 2: "+str(second.bookID)+","+str(second.chkOutCntr))
                 output("Top Books 3: "+str(third.bookID)+","+str(third.chkOutCntr))
-                print('list top')
 #                Call function list top books
             elif "BooksNotIssued" in line:
                 print('not issued')
